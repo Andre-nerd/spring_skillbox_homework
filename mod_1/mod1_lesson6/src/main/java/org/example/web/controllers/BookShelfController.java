@@ -39,10 +39,12 @@ public class BookShelfController {
     }
 
     @PostMapping("/remove")
-    public String removeBook(@RequestParam(value = "bookIdToRemove") Integer bookIdToRemove) {
+    public String removeBook(@RequestParam(value = "bookIdToRemove") Integer bookIdToRemove, Model model) {
         if (bookService.removeBookById(bookIdToRemove)) {
             return "redirect:/books/shelf";
         } else {
+            model.addAttribute("book", new Book());
+            model.addAttribute("bookList", bookService.getAllBooks());
             return "book_shelf";
         }
     }
