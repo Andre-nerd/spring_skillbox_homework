@@ -34,8 +34,8 @@ public class BookShelfController {
 
     @PostMapping("/save")
     public String saveBook(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult) {
-        logger.info("Save book: " +book);
-        if(bindingResult.hasErrors()){
+        logger.info("Save book: " + book);
+        if (bindingResult.hasErrors()) {
             logger.info("saveBook() has Error");
             return "book_shelf";
         }
@@ -53,5 +53,14 @@ public class BookShelfController {
             model.addAttribute("bookList", bookService.getAllBooks());
             return "book_shelf";
         }
+    }
+
+    @PostMapping("/removeByRegex")
+    public String removeByRegex(@RequestParam(value = "queryRegex") String queryRegex, Model model) {
+        logger.info("remove by regex: " + queryRegex);
+        bookService.removeByRegex(queryRegex);
+        model.addAttribute("book", new Book());
+        model.addAttribute("bookList", bookService.getAllBooks());
+        return "book_shelf";
     }
 }
