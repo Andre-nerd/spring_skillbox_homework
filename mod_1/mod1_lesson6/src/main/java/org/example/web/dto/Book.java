@@ -1,9 +1,16 @@
 package org.example.web.dto;
 
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class Book {
     private Integer id;
+    @NotEmpty(message = "Field cannot be empty")
     private String author;
+    @NotEmpty(message = "Field cannot be empty")
     private String title;
+    @NotNull(message = "Field should be digit")
     private Integer size;
 
     public Integer getId() {
